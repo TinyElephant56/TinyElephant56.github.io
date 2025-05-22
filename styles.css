@@ -115,7 +115,7 @@ ul {
 
 .friend-window {
     width: auto;
-    height: 100px;
+    height: 80px;
     overflow: auto;
 }
 
@@ -187,6 +187,20 @@ ul {
 
 .icon:hover img {
     opacity: 0.5;
+}
+
+.rotating {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .coding {
