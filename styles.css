@@ -103,19 +103,25 @@ ul {
 
 .change-window {
     width: auto;
-    height: 120px;
+    height: 100px;
     overflow: auto;
 }
 
 .about-window {
     width: auto;
-    height: 180px;
+    height: 100px;
+    overflow: auto;
+}
+
+.friend-window {
+    width: auto;
+    height: 100px;
     overflow: auto;
 }
 
 .robotics {
     /* height: 300px; */
-    width: 620px;
+    width: 560px;
 }
 
 .programming-side {
@@ -147,6 +153,41 @@ ul {
     overflow: scroll
 }
 
+.icon {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    overflow: visible;
+    z-index: 999;
+}
+
+.icon img {
+    height: 80px;
+    transition: opacity 0.3s;
+
+}
+
+.hover-message {
+    transform: translate(80px, -60px);
+    background: indigo;
+    color: white;
+    border: white;
+    border-style: dashed;
+    padding: 5px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10;
+    pointer-events: none;
+    width: 200px;
+}
+
+.icon:hover .hover-message {
+    opacity: 1;
+}
+
+.icon:hover img {
+    opacity: 0.5;
+}
 
 .coding {
     height: 620px;
@@ -179,6 +220,6 @@ ul {
     height: 700px;
 } */
 
-.footer {
+footer {
     text-align: center;
 }
