@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>roboguide</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<p>I hope to make an overview of the full systems within the robot. To
+get a description and more info, <a href="#nutshell">:underlined
+terms</a> 👈 click</p>
+<ul>
+<li><a href="#robot-components">Robot components</a></li>
+<li><a href="#programming-overview">Programming overview</a></li>
+<li><a href="#manufacturing">Manufacturing</a></li>
+<li><a href="#">design</a></li>
+<li><a href="#">competitions</a></li>
+<li><a href="#more-electrical-details">electrical details</a></li>
+<li><a href="#">programming details</a></li>
+</ul>
+<h2 id="robot-components">Robot components</h2>
+<h3 id="robot-overview">Robot Overview</h3>
+<p><img src="roborio2.jpg" /></p>
+<p>This, the <a href="#roborio">:roboRIO</a>, is the “brains” of the
+robot. We upload code to it before a match, and during a match it will
+revieve inputs from the driver through the <a href="#radio">:radio</a>.
+It will process the inputs and control the motors. The roboRIO knows its
+position on the field and whether it has a game piece or not with <a
+href="#beam-break">:sensors</a> and <a href="#cameras">:cameras</a>.</p>
+<h3 id="power-distribution">Power Distribution</h3>
+<p><img src="power_1.png" /></p>
+<p>On the robot we have a 12v battery. We replace the battery every
+match and they take a while to charge, and we use(d) a <a
+href="#battery-break">:battery beak</a> to find the best one. <a
+href="#battery-care">:please take good care of the batteries</a></p>
+<p>The battery connects to the PDH/PDP with a breaker in between. The <a
+href="#breaker">:breaker</a> is the on switch of the robot. The <a
+href="#pdh-and-pdp">:PDH/PDP</a> splits the power into many channels.
+Each motor gets power by connecting to one of these channels with <a
+href="#wire-gauges">:thick</a> red and black wires. Each of those
+channels has a fuse, so if there is a surge of power the fuse will pop
+instead of it damaging a motor.</p>
+<p>Some robot components require much less power than the motors. The <a
+href="#mpm">:MPM</a> has channels similar to the PDH, but provides
+channels for small power. Devices that connect to the CAM are <a
+href="#beam-break">:beam breaks</a>, <a href="#n100">:N100s</a>, <a
+href="#cancoder">:CANcoders</a>, and the <a href="#pigeon">:pigeon</a>.
+One MPM channel can often power multiple devices.</p>
+<h3 id="communication">Communication</h3>
+<p>In addition to the the wires that are used for power, we also need
+wires to transmit data across the robot Lets revise our diagram to
+include it! *diagram involving CAN To communicate to the roboRIO,
+components either <a href="#pwm">:PWM</a>, <a href="#dio">:DIO</a>, or
+<a href="https://www.youtube.com/watch?v=YBrU_eZM110">:CAN</a>.</p>
+<p>CAN is the one Devices that communicate to the roboRIO via CAN are
+the <a href="#roborio">:roboRIO</a>, <a href="#pigeon">:Pigeon</a>,
+[:][:CANdle], [:PDH/PDP]</p>
+<h3 id="communication-1">Communication</h3>
+<h2 id="programming-overview">Programming overview</h2>
+<h3 id="cameras">Cameras</h3>
+<p>camera camera camera</p>
+<h3 id="radio">Radio</h3>
+<p>radio radio radio</p>
+<h3 id="drive-station">Drive Station</h3>
+<h2 id="electrical-details">Electrical details</h2>
+<h3 id="roborio">roboRIO</h3>
+<h3 id="pdh-and-pdp">PDH-and-PDP</h3>
+<h3 id="breaker">Breaker</h3>
+<h2 id="programming-details">Programming details</h2>
+<h2 id="manufacturing">Manufacturing</h2>
+<h3 id="what-powers-the-robot-overview">What powers the robot?
+(overview)</h3>
+<h3 id="how-do-the-motors-work">How do the motors work?</h3>
+<p>*image of kraken The motors that we use are Krakens. There are cool
+becasue they are brushless motors with a built in <a href="">motor
+controller</a>.</p>
+<p>*its really cool and you should do some learning on this on your own!
+**other teams need to use an external device, like this SPARK MAX <a
+href="sercos">what about servos?</a> <a href="#Encoders?">what about
+encoders?</a> [how does programming work with this?] ### How do the
+motors communicate with the roboRIO? The CAN bus is the yellow and green
+wires that go throughout the bot. There are two wires because it forms a
+differntial pair, which mitigates any noise.</p>
+<p><em>controller area network </em>pulse width modulation We also</p>
+<h2 id="general-engi-stuff">General engi stuff</h2>
+<h3 id="pwm">PWM</h3>
+<p>pulse width mudolcation</p>
+<h3 id="dio">DIO</h3>
+<p>digital input output</p>
+<h3 id="mpm">MPM</h3>
+<p>Mini Power Module also known as a <a href="#mpm">:MPM</a>. it has a
+<a href="https://en.wikipedia.org/wiki/Fuse_(electrical)">:fuse</a></p>
+<h3 id="can-bus">Can Bus</h3>
+<script src="https://cdn.jsdelivr.net/gh/ncase/nutshell/nutshell.js"></script>
+</body>
+</html>
