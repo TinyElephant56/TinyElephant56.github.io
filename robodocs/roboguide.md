@@ -11,36 +11,46 @@ I hope to make an overview of the full systems within the robot. To get a descri
 
 ## Robot components
 
+[:asf](https://www.team5026.com/2022-2023_Robot_CAN_Documentation)
+
 ### Robot Overview
 
 ![](roborio2.jpg)
 
 This, the [:roboRIO](#roborio), is the “brains” of the robot. We upload code to it before a match, and during a match it will revieve inputs from the driver through the [:radio](#radio).The roboRIO knows its position on the field and whether it has a game piece or not. It will process the inputs and control the motors. 
 
-### :Power Distribution
+### Power Distribution
 
-Here's a diagram on how the battery powers the robot
+Here's a diagram on how the battery powers the robot! We'll start with
 
 ![](power_1.png)
+A 12v battery powers the robot. Its important that we [:take care of our batteries](#battery-care)
 
-On the robot we have a 12v battery. We need a new battery every match and they take a while to charge, so we have a whole cart full fo them! We use(d) a [:battery beak](#battery-break) to find the best one. [:please take good care of the batteries](#battery-care)
+The battery connects to the PDH/PDP with a breaker in between. The [:breaker](#breaker) is the on switch of the robot. The [:PDH/PDP](#pdh-and-pdp) splits the power into many channels. Each motor connects to one of these channels with thick red and black [:wires](#wires-and-fuses). Each of those channels has a fuse, so if there is a surge of power the fuse will pop instead of it damaging a motor.
 
-The battery connects to the PDH/PDP with a breaker in between. The [:breaker](#breaker) is the on switch of the robot. The [:PDH/PDP](#pdh-and-pdp) splits the power into many channels. Each motor gets power by connecting to one of these channels with [:thick](#wire-gauges) red and black wires. Each of those channels has a fuse, so if there is a surge of power the fuse will pop instead of it damaging a motor.
+Some robot components require much less power than the motors. The [:MPM](#mpm) has channels similar to the PDH, but provides channels for small power. Devices that connect to the CAM are [:beam breaks](#beam-break), [:N100s](#n100), [:CANcoders](#cancoders), and the [:pigeon](#pigeon). One MPM channel can often power multiple devices. 
 
-Some robot components require much less power than the motors. The [:MPM](#mpm) has channels similar to the PDH, but provides channels for small power. Devices that connect to the CAM are [:beam breaks](#beam-break), [:N100s](#n100), [:CANcoders](#cancoder), and the [:pigeon](#pigeon). One MPM channel can often power multiple devices. 
+*note that things are slightly different for the PDP 2.0
 
-### :Communication to the roboRIO
-We also need wires to transmit data! Lets revise our diagram to include it!
+### Communication to the roboRIO
+We also need wires to transmit data! Lets revise our diagram to include it:
 
-![]()
+![](power_1_small.png)
 
 *diagram involving CAN
-To communicate to the roboRIO, components either [:PWM](#pwm), [:DIO](#dio), or [:CAN](https://www.youtube.com/watch?v=YBrU_eZM110).
+The roboRIO mainly uses three communication protocols: CAN, PWM, and DIO.
 
-CAN is the one 
-Devices that communicate to the roboRIO via CAN are the [:roboRIO](#roborio), [:Pigeon](#pigeon), [:][:CANdle], [:PDH/PDP]
+The most important one is the [:CAN bus](#can-bus). It's a two-wire comminication system that connects devices like [Pigeons](#pigeon), [:CANdles](#candle), [:CANcoders](#cancoders), and [:motor controllers]() in a daisy chain. Each device has a unique [:ID](#can-ids).
 
-### Communication
+[:DIO]
+
+[:PWM]
+
+To communicate to the roboRIO, components either [:PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation), [:DIO](#dio), or [:CAN](https://www.youtube.com/watch?v=YBrU_eZM110).
+
+### Communication to drivers
+
+ethernet
 
 ## Programming overview
 
@@ -51,11 +61,49 @@ camera camera camera
 radio radio radio
 
 ### Drive Station
+drivity drive drive drive
 
 ## Electrical details
+
 ### roboRIO
+rio rio rio
+
 ### PDH-and-PDP
+PDH: Power Distrubution Hub
+PDP: Power Distribution Power
+
 ### Breaker
+*video of someone turing the robot on and off 
+
+### Wires and fuses
+This is complicated.
+
+### Bream breaks
+![](beam_break.jpeg)
+
+### Pigeon
+The gyroscope of the robot. This has to be in the very center of the robot!
+
+### CANdle
+A device to control light strips. It revieves data through CAM 
+
+![](candle.png)
+
+
+### CANcoders
+CAN + encoder = cancoder
+
+An encoder measures the rotation of a shaft. The CAN part means it transmits this data over the CAN bus
+
+![For example, this CANcoder on the swerve uses magnets to measure the angle of the wheel.](cancoder_swerve.jpeg)
+
+![This CANcoder could be used on a subsystem, lets say an arm, to measure its angle.](cancoder_shaft.jpeg)
+
+### N100
+An intel computer. They are powered by a [:buck-boost converter](https://en.wikipedia.org/wiki/Buck%E2%80%93boost_converter)
+
+### can-ids
+We have a spreadsheet to keep track of this
 
 ## Programming details
 
@@ -63,40 +111,20 @@ radio radio radio
 ## Manufacturing
 
 
-### What powers the robot? (overview)
 
-### How do the motors work?
-*image of kraken
-The motors that we use are Krakens. There are cool becasue they are brushless motors with a built in [motor controller](). 
-
-*its really cool and you should do some learning on this on your own!
-**other teams need to use an external device, like this SPARK MAX
-[what about servos?](sercos)
-[what about encoders?](#Encoders?)
-[how does programming work with this?]
-### How do the motors communicate with the roboRIO?
-The CAN bus is the yellow and green wires that go throughout the bot. 
-There are two wires because it forms a differntial pair, which mitigates any noise.
-
-*controller area network
-*pulse width modulation
-We also 
-
-[pdh]: linklink
-
-## General engi stuff
-
-### PWM
-pulse width mudolcation
+## Other
 
 ### DIO
-digital input output
+digital input output.
+
+the thing provides resistance or something
 
 ### MPM
 Mini Power Module also known as a [:MPM](#mpm). it has a [:fuse](https://en.wikipedia.org/wiki/Fuse_(electrical))
 
-
 ### Can Bus
 
+### Wires and Fuses
+There is a strict sysetem of this
 
 <script src="https://cdn.jsdelivr.net/gh/ncase/nutshell/nutshell.js"></script>

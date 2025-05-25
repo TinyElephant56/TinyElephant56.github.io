@@ -182,78 +182,108 @@ terms</a> 👈 click</p>
 <li><a href="#">programming details</a></li>
 </ul>
 <h2 id="robot-components">Robot components</h2>
+<p><a
+href="https://www.team5026.com/2022-2023_Robot_CAN_Documentation">:asf</a></p>
 <h3 id="robot-overview">Robot Overview</h3>
 <p><img src="roborio2.jpg" /></p>
 <p>This, the <a href="#roborio">:roboRIO</a>, is the “brains” of the
 robot. We upload code to it before a match, and during a match it will
-revieve inputs from the driver through the <a href="#radio">:radio</a>.
-It will process the inputs and control the motors. The roboRIO knows its
-position on the field and whether it has a game piece or not with <a
-href="#beam-break">:sensors</a> and <a href="#cameras">:cameras</a>.</p>
-<h3 id="power-distribution">Power Distribution</h3>
-<p><img src="power_1.png" /></p>
-<p>On the robot we have a 12v battery. We replace the battery every
-match and they take a while to charge, and we use(d) a <a
-href="#battery-break">:battery beak</a> to find the best one. <a
-href="#battery-care">:please take good care of the batteries</a></p>
+revieve inputs from the driver through the <a
+href="#radio">:radio</a>.The roboRIO knows its position on the field and
+whether it has a game piece or not. It will process the inputs and
+control the motors.</p>
+<h3 id="power-distribution">:Power Distribution</h3>
+<p>Here’s a diagram on how the battery powers the robot! We’ll start
+with</p>
+<p><img src="power_1.png" /> A 12v battery powers the robot. Its
+important that we <a href="#battery-care">:take care of our
+batteries</a></p>
 <p>The battery connects to the PDH/PDP with a breaker in between. The <a
 href="#breaker">:breaker</a> is the on switch of the robot. The <a
 href="#pdh-and-pdp">:PDH/PDP</a> splits the power into many channels.
-Each motor gets power by connecting to one of these channels with <a
-href="#wire-gauges">:thick</a> red and black wires. Each of those
-channels has a fuse, so if there is a surge of power the fuse will pop
-instead of it damaging a motor.</p>
+Each motor connects to one of these channels with thick red and black <a
+href="#wires-and-fuses">:wires</a>. Each of those channels has a fuse,
+so if there is a surge of power the fuse will pop instead of it damaging
+a motor.</p>
 <p>Some robot components require much less power than the motors. The <a
 href="#mpm">:MPM</a> has channels similar to the PDH, but provides
 channels for small power. Devices that connect to the CAM are <a
 href="#beam-break">:beam breaks</a>, <a href="#n100">:N100s</a>, <a
-href="#cancoder">:CANcoders</a>, and the <a href="#pigeon">:pigeon</a>.
+href="#cancoders">:CANcoders</a>, and the <a href="#pigeon">:pigeon</a>.
 One MPM channel can often power multiple devices.</p>
-<h3 id="communication">Communication</h3>
-<p>In addition to the the wires that are used for power, we also need
-wires to transmit data across the robot Lets revise our diagram to
-include it! *diagram involving CAN To communicate to the roboRIO,
-components either <a href="#pwm">:PWM</a>, <a href="#dio">:DIO</a>, or
-<a href="https://www.youtube.com/watch?v=YBrU_eZM110">:CAN</a>.</p>
-<p>CAN is the one Devices that communicate to the roboRIO via CAN are
-the <a href="#roborio">:roboRIO</a>, <a href="#pigeon">:Pigeon</a>,
-[:][:CANdle], [:PDH/PDP]</p>
-<h3 id="communication-1">Communication</h3>
+<p>*note that things are slightly different for the PDP 2.0</p>
+<h3 id="communication-to-the-roborio">Communication to the roboRIO</h3>
+<p>We also need wires to transmit data! Lets revise our diagram to
+include it:</p>
+<p><img src="power_1_small.png" /></p>
+<p>*diagram involving CAN The roboRIO mainly uses three communication
+protocols: CAN, PWM, and DIO.</p>
+<p>The most important one is the <a href="#can-bus">:CAN bus</a>. It’s a
+two-wire comminication system that connects devices like <a
+href="#pigeon">Pigeons</a>, <a href="#candle">:CANdles</a>, <a
+href="#cancoders">:CANcoders</a>, and <a href="">:motor controllers</a>
+in a daisy chain. Each device has a unique <a
+href="#can-ids">:ID</a>.</p>
+<p>[:DIO]</p>
+<p>[:PWM]</p>
+<p>To communicate to the roboRIO, components either <a
+href="https://en.wikipedia.org/wiki/Pulse-width_modulation">:PWM</a>, <a
+href="#dio">:DIO</a>, or <a
+href="https://www.youtube.com/watch?v=YBrU_eZM110">:CAN</a>.</p>
+<h3 id="communication-to-drivers">Communication to drivers</h3>
+<p>ethernet</p>
 <h2 id="programming-overview">Programming overview</h2>
 <h3 id="cameras">Cameras</h3>
 <p>camera camera camera</p>
 <h3 id="radio">Radio</h3>
 <p>radio radio radio</p>
 <h3 id="drive-station">Drive Station</h3>
+<p>drivity drive drive drive</p>
 <h2 id="electrical-details">Electrical details</h2>
 <h3 id="roborio">roboRIO</h3>
+<p>rio rio rio</p>
 <h3 id="pdh-and-pdp">PDH-and-PDP</h3>
+<p>PDH: Power Distrubution Hub PDP: Power Distribution Power</p>
 <h3 id="breaker">Breaker</h3>
+<p>*video of someone turing the robot on and off</p>
+<h3 id="wires-and-fuses">Wires and fuses</h3>
+<p>This is complicated.</p>
+<h3 id="bream-breaks">Bream breaks</h3>
+<p><img src="beam_break.jpeg" /></p>
+<h3 id="pigeon">Pigeon</h3>
+<p>The gyroscope of the robot</p>
+<h3 id="candle">CANdle</h3>
+<p>CAN + ????</p>
+<p><img src="candle.png" /></p>
+<p>This device lets</p>
+<h3 id="cancoders">CANcoders</h3>
+<p>CAN + encoder = cancoder</p>
+<figure>
+<img src="cancoder_swerve.jpeg"
+alt="For example, this CANcoder on the swerve uses magnets to measure the angle of the wheel." />
+<figcaption aria-hidden="true">For example, this CANcoder on the swerve
+uses magnets to measure the angle of the wheel.</figcaption>
+</figure>
+<figure>
+<img src="cancoder_shaft.jpeg"
+alt="This CANcoder could be used on a subsystem, lets say an arm, to measure its angle." />
+<figcaption aria-hidden="true">This CANcoder could be used on a
+subsystem, lets say an arm, to measure its angle.</figcaption>
+</figure>
+<p>An encoder measures the rotation of a shaft. The CAN part means it
+transmits this data over the CAN bus</p>
 <h2 id="programming-details">Programming details</h2>
 <h2 id="manufacturing">Manufacturing</h2>
-<h3 id="what-powers-the-robot-overview">What powers the robot?
-(overview)</h3>
-<h3 id="how-do-the-motors-work">How do the motors work?</h3>
-<p>*image of kraken The motors that we use are Krakens. There are cool
-becasue they are brushless motors with a built in <a href="">motor
-controller</a>.</p>
-<p>*its really cool and you should do some learning on this on your own!
-**other teams need to use an external device, like this SPARK MAX <a
-href="sercos">what about servos?</a> <a href="#Encoders?">what about
-encoders?</a> [how does programming work with this?] ### How do the
-motors communicate with the roboRIO? The CAN bus is the yellow and green
-wires that go throughout the bot. There are two wires because it forms a
-differntial pair, which mitigates any noise.</p>
-<p><em>controller area network </em>pulse width modulation We also</p>
-<h2 id="general-engi-stuff">General engi stuff</h2>
-<h3 id="pwm">PWM</h3>
-<p>pulse width mudolcation</p>
+<h2 id="other">Other</h2>
 <h3 id="dio">DIO</h3>
-<p>digital input output</p>
+<p>digital input output.</p>
+<p>the thing provides resistance or something</p>
 <h3 id="mpm">MPM</h3>
 <p>Mini Power Module also known as a <a href="#mpm">:MPM</a>. it has a
 <a href="https://en.wikipedia.org/wiki/Fuse_(electrical)">:fuse</a></p>
 <h3 id="can-bus">Can Bus</h3>
+<h3 id="wires-and-fuses-1">Wires and Fuses</h3>
+<p>There is a strict sysetem of this</p>
 <script src="https://cdn.jsdelivr.net/gh/ncase/nutshell/nutshell.js"></script>
 </body>
 </html>
