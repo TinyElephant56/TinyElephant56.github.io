@@ -171,24 +171,22 @@
 <body>
 <p>work in progress!</p>
 <h2 id="what-is-this">:What is this?</h2>
-<p>I hope to make an overview of the full systems within the robot! dont
-judge yet. it uses <a
-href="https://ncase.me/nutshell/#WhatIsNutshell">:nutshell</a> to make
-expandable explanations</p>
+<p>This is a guide for the full systems of the robot. Hopefully you’ll
+learn something, no matter what subteam you’re on! The expandable
+explanations are created using <a
+href="https://ncase.me/nutshell/#WhatIsNutshell">:nutshell</a></p>
 <h2 id="what-controlls-the-robot-during-a-match">:What controlls the
 robot during a match?</h2>
-<p><img src="roborio2.jpg" /></p>
-<p>This, the <a href="#roborio">:roboRIO</a>, is the “brains” of the
-robot. We upload code to it before a match, and during a match it will
-revieve inputs from the driver through the <a href="#radio">:radio</a>.
-The roboRIO knows its position on the field and whether it has a game
-piece or not. It will process the inputs and control the motors.</p>
+<p>The robot is controlled by the RoboRIO, which acts as the central
+brain, processing inputs from drivers and sensors. During a match, it
+will execute our code to command subsystems like the drivetrain, intake,
+and shooter.</p>
 <h2 id="how-is-power-distributed">:How is power distributed?</h2>
-<p>Here’s a diagram on how the battery powers the robot! We’ll start
-with</p>
 <p><img src="power_1.png" /></p>
-<p>A 12v battery powers the robot. Its important that we <a
-href="#battery-care">:take care of our batteries</a></p>
+<p>A 12v lead-acid battery powers all components on the robot. Its
+important that we use a battery in <a href="#battery-beak">:good
+condition</a> and have secure wiring, because any voltage drops can
+cause performace issues or even reboot the RoboRIO (very bad)</p>
 <p>The battery connects to the PDH/PDP with a breaker in between. The <a
 href="#breaker">:breaker</a> is the on switch of the robot. Turn it on
 by pressing</p>
@@ -201,62 +199,87 @@ it damaging a motor.</p>
 href="#mpm">:MPM</a> has channels similar to the PDH, but provides
 channels for small power. Devices that connect to the CAM are <a
 href="#beam-break">:beam breaks</a>, <a href="#n100">:N100s</a>, <a
-href="#cancoders">:CANcoders</a>, and the <a href="#pigeon">:pigeon</a>.
+href="#cancoders">:CANcoders</a>, and the <a href="#pigeon">:Pigeon</a>.
 One MPM channel can often power multiple devices.</p>
-<p>*note that things are slightly different for the PDP 2.0</p>
+<p>note that things are slightly different for the PDP 2.0. also, the
+radio is actually powered redundantly with <a href="#radio">:POE</a></p>
 <h2 id="how-do-components-communicate-with-the-roborio">:How do
 components communicate with the roboRIO?</h2>
-<p>We also need wires to transmit data! Lets revise our diagram to
-include it:</p>
 <p><img src="power_2.png" /></p>
-<p>*diagram involving CAN The roboRIO mainly uses three communication
-protocols: CAN, PWM, and DIO.</p>
+<p>The roboRIO mainly has four ways of communication: CAN, PWM, DIO, and
+ethernet.</p>
 <p>The most important one is the <a href="#can-bus">:CAN bus</a>. It’s a
 two-wire comminication system that connects devices like <a
-href="#pigeon">Pigeons</a>, <a href="#candle">:CANdles</a>, <a
+href="#pigeon">::igeons</a>, <a href="#candle">:CANdles</a>, <a
 href="#cancoders">:CANcoders</a>, and <a href="">:motor controllers</a>
 in a daisy chain. Each device has a unique <a
 href="#can-ids">:ID</a>.</p>
-<p>[:DIO]</p>
-<p>[:PWM]</p>
-<p>To communicate to the roboRIO, components either <a
-href="https://en.wikipedia.org/wiki/Pulse-width_modulation">:PWM</a>, <a
-href="#dio">:DIO</a>, or <a
-href="https://www.youtube.com/watch?v=YBrU_eZM110">:CAN</a>.</p>
+<p><a href="#dio">:DIO</a> ports are used to send simple on/off signals.
+DIO is great for small sensors like limit switches and <a
+href="#-bream-breaks">:beam breaks</a>.</p>
+<p><a
+href="https://en.wikipedia.org/wiki/Pulse-width_modulation">:PWM</a> can
+be used to control <a href="servos">:servos</a> or older PWM motor
+controllers We would only use it when a device doesn’t support CAN,
+since CAN is bi-directional and can send much more data.</p>
+<p>We’ll talk about ethernet in the next section</p>
 <h2 id="what-does-the-robots-network-look-like">:What does the robot’s
 network look like?</h2>
-<p>*diagram of radio, roborio, laptop, and n100</p>
-<p>ethernet</p>
+<p><img src="power_3.png" /></p>
+<p>The robot’s network is built around the radio. It creates a private
+network for the robot under the team’s <a href="#ip">:IP</a> range and
+connects to the field management system (FMS) during matches.</p>
+<p>The radio connects to the RoboRIO and N100s via ethernet, allowing
+them to transmit data to each other. The cameras are connected and
+powered by the N100, which processes image data and sends it to the
+RoboRIO over ethernet, allowing it to make autonomous decisions.</p>
+<p>The radio can connect to the <a href="#drive-station">:driver
+station</a> over wifi, or it can be tethered directly with ethernet.</p>
 <h2 id="what-is-the-code-actually-doing-during-a-match">:What is the
 code actually doing during a match?</h2>
-<p>adsd</p>
+<p>Our robots code is command-based. Its based around two core <a
+href="#abstraction">:abstractions</a>: Subsystems and Commands</p>
+<figure>
+<img src="command_based.svg" alt="An example by :FIRST" />
+<figcaption aria-hidden="true">An example by <a
+href="#how-does-the-vision-system-work">:FIRST</a></figcaption>
+</figure>
+<p>W</p>
+<h2 id="what-is-version-control">:What is version control?</h2>
 <h2 id="how-does-the-vision-system-work">:How does the vision system
 work?</h2>
 <p>camera camera camera</p>
+<h2 id="how-do-purchases-work">:How do purchases work?</h2>
+<p>email to someone to create a <a href="#purchase-order">PO</a></p>
+<h2 id="how-do-we-transport-all-our-stuff-to-competition">:How do we
+transport all our stuff to competition?</h2>
+<h2 id="what-is-scouting-for">:What is scouting for?</h2>
+<h2 id="what-is-the-district-system">:What is the district system?</h2>
 <h2 id="who-made-this">:Who made this?</h2>
 <hr />
-<h3 id="radio">: Radio</h3>
+<h3 id="radio">:Radio</h3>
 <p>radio radio radio</p>
-<h3 id="drive-station">: Drive Station</h3>
+<h3 id="drive-station">:Drive Station</h3>
 <p>drivity drive drive drive</p>
-<h3 id="roborio">: roboRIO</h3>
+<h3 id="roborio-2.0">:roboRIO 2.0</h3>
 <p>rio rio rio</p>
-<h3 id="pdh-and-pdp">: PDH-and-PDP</h3>
-<p>PDH: Power Distrubution Hub PDP: Power Distribution Power</p>
-<h3 id="breaker">: Breaker</h3>
+<h3 id="pdh-and-pdp">:PDH and PDP</h3>
+<p>PDH: Power Distrubution Hub</p>
+<p>PDP: Power Distribution Power</p>
+<h3 id="breaker">:Breaker</h3>
 <p>*video of someone turing the robot on and off</p>
 <h2 id="what-wires-and-fuses-do-you-use">:What wires and fuses do you
 use?</h2>
 <p>This is complicated.</p>
-<h3 id="bream-breaks">: Bream breaks</h3>
+<h3 id="bream-breaks">:Bream breaks</h3>
 <p><img src="beam_break.jpeg" /></p>
-<h3 id="pigeon">: Pigeon</h3>
+<h3 id="pigeon">:Pigeon</h3>
 <p>The gyroscope of the robot. This has to be in the very center of the
 robot!</p>
-<h3 id="candle">: CANdle</h3>
+<h3 id="candle">:CANdle</h3>
 <p>A device to control light strips. It revieves data through CAM</p>
 <p><img src="candle.png" /></p>
-<h3 id="cancoders">: CANcoders</h3>
+<h3 id="cancoders">:CANcoders</h3>
 <p>CAN + encoder = cancoder</p>
 <p>An encoder measures the rotation of a shaft. The CAN part means it
 transmits this data over the CAN bus</p>
@@ -272,19 +295,56 @@ alt="This CANcoder could be used on a subsystem, lets say an arm, to measure its
 <figcaption aria-hidden="true">This CANcoder could be used on a
 subsystem, lets say an arm, to measure its angle.</figcaption>
 </figure>
-<h3 id="n100">: N100</h3>
+<h3 id="n100">:N100</h3>
 <p>An intel computer. They are powered by a <a
 href="https://en.wikipedia.org/wiki/Buck%E2%80%93boost_converter">:buck-boost
 converter</a></p>
-<h3 id="can-ids">: CAN IDs</h3>
+<h3 id="can-ids">:CAN IDs</h3>
 <p>We have a spreadsheet to keep track of this</p>
-<h3 id="can-bus">: Can Bus</h3>
-<h3 id="dio">: DIO</h3>
-<p>digital input output.</p>
-<p>the thing provides resistance or something</p>
-<h3 id="mpm">: MPM</h3>
+<h3 id="can-bus">:Can Bus</h3>
+<p>The CAN starts at the roboRIO and ends at the PDP because the CAN
+network is required to be terminated by 120 Ω resistors and these are
+built into these two devices.</p>
+<p><a href="https://www.youtube.com/watch?v=YBrU_eZM110">:video
+explanation</a></p>
+<h3 id="dio">:DIO</h3>
+<p>Digital Input Output.</p>
+<p>There are three wires: red, white and black. The red wire is usually
+5v, the black wire is 0v, and the white wire is in between that. The
+white wire measures the tou</p>
+<h3 id="field-management-system">:Field Management System</h3>
+<h3 id="pwm">:PWM</h3>
+<h3 id="mpm">:MPM</h3>
 <p>Mini Power Module also known as a <a href="#mpm">:MPM</a>. it has a
 <a href="https://en.wikipedia.org/wiki/Fuse_(electrical)">:fuse</a></p>
+<h3 id="ip">:IP</h3>
+<p>FRC has a pretty good explanation of how IP works <a
+href="https://docs.wpilib.org/en/stable/docs/networking/networking-introduction/networking-basics.html#networking-basics">:here</a></p>
+<h3 id="motors">:Motors</h3>
+<p>Motors used to be so much complicated lol. now we just krakens
+becasue they COOK</p>
+<h3 id="motor-controllers">:Motor controllers</h3>
+<p>Kraken and Falcon motors have build in motor controlers to the back,
+Talon FX.</p>
+<p>other teams might have external motor controlers, such as SPARK
+MAX</p>
+<h3 id="coordinate-system">:Coordinate System</h3>
+<p>nora can you write this? :)</p>
+<h3 id="abstraction">:Abstraction</h3>
+<p>Abstraction is the concept of hiding complex implementation details
+and exposing only the necessary parts of a system through a simplified
+interface. In FRC, abstraction lets you control a robot mechanism using
+simple commands without needing to directly manage motor speeds, sensor
+readings, or hardware configurations each time.</p>
+<p>In our code you might see something like</p>
+<p><code>superstructureIO.stop()</code></p>
+<p>The superstructure is an abstraction. (ok the class structure is
+actually <a href="#class-structure">:so much more complicated</a>)</p>
+<h3 id="battery-break">:Battery Break</h3>
+<p>We use a battery beak to measure the voltage of each battery.
+However, info it gives is not the most useful. <a href="">:This
+conference</a> gives a bit of an explanation why. This system may be
+changed in the future.</p>
 <script src="https://cdn.jsdelivr.net/gh/ncase/nutshell/nutshell.js"></script>
 </body>
 </html>
