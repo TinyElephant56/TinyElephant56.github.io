@@ -170,6 +170,9 @@
 </head>
 <body>
 <p>work in progress!</p>
+<p><a
+href="https://www.team5026.com/General_Electrical_Documentation#Battery">:MORE
+INFO ABOUT THE BATTER</a></p>
 <h2 id="what-is-this">:What is this?</h2>
 <p>This is a guide for the full systems of the robot. Hopefully you’ll
 learn something, no matter what subteam you’re on! The expandable
@@ -177,52 +180,61 @@ explanations are created using <a
 href="https://ncase.me/nutshell/#WhatIsNutshell">:nutshell</a></p>
 <h2 id="what-controlls-the-robot-during-a-match">:What controlls the
 robot during a match?</h2>
+<p><img src="badroborio.png" /></p>
 <p>The robot is controlled by the RoboRIO, which acts as the central
 brain, processing inputs from drivers and sensors. During a match, it
 will execute our code to command subsystems like the drivetrain, intake,
 and shooter.</p>
 <h2 id="how-is-power-distributed">:How is power distributed?</h2>
 <p><img src="power_1.png" /></p>
-<p>A 12v lead-acid battery powers all components on the robot. Its
-important that we use a battery in <a href="#battery-beak">:good
-condition</a> and have secure wiring, because any voltage drops can
-cause performace issues or even reboot the RoboRIO (very bad)</p>
-<p>The battery connects to the PDH/PDP with a breaker in between. The <a
-href="#breaker">:breaker</a> is the on switch of the robot. Turn it on
-by pressing</p>
-<p>The <a href="#pdh-and-pdp">:PDH/PDP</a> splits the power into many
-channels. Each motor connects to one of these channels with thick red
-and black <a href="#wires-and-fuses">:wires</a>. Each of those channels
-has a fuse, so if there is a surge of power the fuse will pop instead of
-it damaging a motor.</p>
-<p>Some robot components require much less power than the motors. The <a
-href="#mpm">:MPM</a> has channels similar to the PDH, but provides
-channels for small power. Devices that connect to the CAM are <a
-href="#beam-break">:beam breaks</a>, <a href="#n100">:N100s</a>, <a
-href="#cancoders">:CANcoders</a>, and the <a href="#pigeon">:Pigeon</a>.
-One MPM channel can often power multiple devices.</p>
-<p>note that things are slightly different for the PDP 2.0. also, the
-radio is actually powered redundantly with <a href="#radio">:POE</a></p>
+<p>A 12v lead-acid battery powers all components on the robot. It’s
+important that we use a battery in <a
+href="#battery-beak">:good condition</a> and secure the wiring, because
+any voltage drops can cause performace issues or even reboot the RoboRIO
+(very bad!)</p>
+<p>The battery connects to the <a href="#pdh-and-pdp">:PDH/PDP</a> with
+a breaker in between. The <a href="#breaker">:breaker</a> is the on/off
+switch of the robot. Turn it on by pressing the lever in, off by
+pressing the red button.</p>
+<p><img src="breaker.gif" /></p>
+<p>The <a href="#pdh-and-pdp">:PDH/PDP</a> distrubutes power throughout
+the robot. Each motor connects to one of a channels in the PDH/PDP with
+thick red and black <a href="#wires-and-fuses">:wires</a>. Each of those
+channels has a fuse, so if there is a surge of power the fuse will pop
+instead of it damaging a motor.</p>
+<p>Some robot components require much less power than the <a
+href="#krakens">:motors</a>. The <a href="#mpm">:MPM</a> provides
+channels for low power devices. One MPM channel can often power multiple
+devices. Devices that connect to the MPM include <a
+href="#beam-break">:beam breaks</a>, <a href="#n100">:N100s</a>, <a
+href="#cancoders">:CANcoders</a>, and the <a
+href="#pigeon">:Pigeon</a>.</p>
+<p>Note that things are slightly different for the PDP 2.0.</p>
+<p>Also, the <a href="#radio">:radio</a> is powered a little
+differently, utilizing <a href="#poe">:POE</a></p>
+<h2 id="what-fuses-and-wire-thickness-do-we-use">:What fuses and wire
+thickness do we use?</h2>
 <h2 id="how-do-components-communicate-with-the-roborio">:How do
 components communicate with the roboRIO?</h2>
 <p><img src="power_2.png" /></p>
 <p>The roboRIO mainly has four ways of communication: CAN, PWM, DIO, and
 ethernet.</p>
-<p>The most important one is the <a href="#can-bus">:CAN bus</a>. It’s a
-two-wire comminication system that connects devices like <a
-href="#pigeon">::igeons</a>, <a href="#candle">:CANdles</a>, <a
-href="#cancoders">:CANcoders</a>, and <a href="">:motor controllers</a>
-in a daisy chain. Each device has a unique <a
-href="#can-ids">:ID</a>.</p>
+<p>The most important one is the CAN bus. It’s a two-wire comminication
+system that connects devices in a daisy chain. The <a
+href="#pigeon">:Pigeon</a>, <a href="#candle">:CANdle</a>, <a
+href="#cancoders">:CANcoders</a>, and <a
+href="#motor-controllers">:motor controllers</a> are connected with cam.
+Each device has a unique ID, which we keep track of on a spreadsheet.
+[<a href="#can-bus">:more info</a>]</p>
 <p><a href="#dio">:DIO</a> ports are used to send simple on/off signals.
 DIO is great for small sensors like limit switches and <a
 href="#-bream-breaks">:beam breaks</a>.</p>
 <p><a
-href="https://en.wikipedia.org/wiki/Pulse-width_modulation">:PWM</a> can
-be used to control <a href="servos">:servos</a> or older PWM motor
-controllers We would only use it when a device doesn’t support CAN,
-since CAN is bi-directional and can send much more data.</p>
-<p>We’ll talk about ethernet in the next section</p>
+href="https://en.wikipedia.org/wiki/Pulse-width_modulation">:PWM</a> is
+used to control <a href="servos">:servos</a> or older motor controllers.
+We would only use it when a device doesn’t support CAN, since CAN is
+bi-directional and can send much more data.</p>
+<p>We’ll talk about ethernet in the next section!</p>
 <h2 id="what-does-the-robots-network-look-like">:What does the robot’s
 network look like?</h2>
 <p><img src="power_3.png" /></p>
@@ -232,19 +244,21 @@ connects to the field management system (FMS) during matches.</p>
 <p>The radio connects to the RoboRIO and N100s via ethernet, allowing
 them to transmit data to each other. The cameras are connected and
 powered by the N100, which processes image data and sends it to the
-RoboRIO over ethernet, allowing it to make autonomous decisions.</p>
-<p>The radio can connect to the <a href="#drive-station">:driver
-station</a> over wifi, or it can be tethered directly with ethernet.</p>
-<h2 id="what-is-the-code-actually-doing-during-a-match">:What is the
-code actually doing during a match?</h2>
-<p>Our robots code is command-based. Its based around two core <a
+RoboRIO.</p>
+<p>During a match, the radio connects to the <a
+href="#drive-station">:driver station</a> over wifi, but in the pits the
+robot can be tethered directly with a ethernet cable (“radio” is a bit
+misleading lol).</p>
+<p><a href="#match-network">:heres how the match network works</a> ##
+:What is the code actually doing during a match? Our robots code is
+command-based. Its based around two core <a
 href="#abstraction">:abstractions</a>: Subsystems and Commands</p>
 <figure>
 <img src="command_based.svg" alt="An example by :FIRST" />
 <figcaption aria-hidden="true">An example by <a
 href="#how-does-the-vision-system-work">:FIRST</a></figcaption>
 </figure>
-<p>W</p>
+<p>Commands represent actions the robot can take</p>
 <h2 id="what-is-version-control">:What is version control?</h2>
 <h2 id="how-does-the-vision-system-work">:How does the vision system
 work?</h2>
@@ -264,8 +278,26 @@ transport all our stuff to competition?</h2>
 <h3 id="roborio-2.0">:roboRIO 2.0</h3>
 <p>rio rio rio</p>
 <h3 id="pdh-and-pdp">:PDH and PDP</h3>
-<p>PDH: Power Distrubution Hub</p>
-<p>PDP: Power Distribution Power</p>
+<p>Power Distrubution Hub / Power Distrubution Port</p>
+<p>The PDP 1.0, PDH, and PDP 2.0 have the same purpose of distrubuting
+power, but they have significant differences!</p>
+<figure>
+<img src="pdp_1.jpeg"
+alt="The PDP 1.0 by CTRE is the oldest of the three. It has" />
+<figcaption aria-hidden="true">The PDP 1.0 by CTRE is the oldest of the
+three. It has</figcaption>
+</figure>
+<figure>
+<img src="pdh.jpeg"
+alt="The PDH by REV. It has orange WAGO terminals" />
+<figcaption aria-hidden="true">The PDH by REV. It has orange WAGO
+terminals</figcaption>
+</figure>
+<figure>
+<img src="pdp_2.jpeg" alt="The PDH by Electronics" />
+<figcaption aria-hidden="true">The PDH by Electronics</figcaption>
+</figure>
+<p><a href="#">:see more about the wiring</a></p>
 <h3 id="breaker">:Breaker</h3>
 <p>*video of someone turing the robot on and off</p>
 <h2 id="what-wires-and-fuses-do-you-use">:What wires and fuses do you
@@ -345,6 +377,11 @@ actually <a href="#class-structure">:so much more complicated</a>)</p>
 However, info it gives is not the most useful. <a href="">:This
 conference</a> gives a bit of an explanation why. This system may be
 changed in the future.</p>
+<h3 id="match-network">:Match Network</h3>
+<p>The 10.x.x.x is a private network, so it can’t be found on the
+internet</p>
+<h3 id="x-poe">:x POE</h3>
+<p>Power Over Ethernet</p>
 <script src="https://cdn.jsdelivr.net/gh/ncase/nutshell/nutshell.js"></script>
 </body>
 </html>

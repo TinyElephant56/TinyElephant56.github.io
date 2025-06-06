@@ -1,9 +1,13 @@
 work in progress!
 
+[:MORE INFO ABOUT THE BATTER](https://www.team5026.com/General_Electrical_Documentation#Battery)
+
 ## :What is this?
 This is a guide for the full systems of the robot. Hopefully you'll learn something, no matter what subteam you're on! The expandable explanations are created using [:nutshell](https://ncase.me/nutshell/#WhatIsNutshell)
 
 ## :What controlls the robot during a match?
+
+![](badroborio.png)
 
 The robot is controlled by the RoboRIO, which acts as the central brain, processing inputs from drivers and sensors. During a match, it will execute our code to command subsystems like the drivetrain, intake, and shooter.
 
@@ -11,17 +15,21 @@ The robot is controlled by the RoboRIO, which acts as the central brain, process
 
 ![](power_1.png)
 
-A 12v lead-acid battery powers all components on the robot. Its important that we use a battery in [:good condition](#battery-beak) and have secure wiring, because any voltage drops can cause performace issues or even reboot the RoboRIO (very bad)
+A 12v lead-acid battery powers all components on the robot. It's important that we use a battery in [:good condition](#battery-beak) and secure the wiring, because any voltage drops can cause performace issues or even reboot the RoboRIO (very bad!)
 
-The battery connects to the PDH/PDP with a breaker in between. The [:breaker](#breaker) is the on switch of the robot. Turn it on by pressing 
+The battery connects to the [:PDH/PDP](#pdh-and-pdp) with a breaker in between. The [:breaker](#breaker) is the on/off switch of the robot. Turn it on by pressing the lever in, off by pressing the red button.
 
-The [:PDH/PDP](#pdh-and-pdp) splits the power into many channels. Each motor connects to one of these channels with thick red and black [:wires](#wires-and-fuses). Each of those channels has a fuse, so if there is a surge of power the fuse will pop instead of it damaging a motor.
+![](breaker.gif)
 
-Some robot components require much less power than the motors. The [:MPM](#mpm) has channels similar to the PDH, but provides channels for small power. Devices that connect to the CAM are [:beam breaks](#beam-break), [:N100s](#n100), [:CANcoders](#cancoders), and the [:Pigeon](#pigeon). One MPM channel can often power multiple devices. 
+The [:PDH/PDP](#pdh-and-pdp) distrubutes power throughout the robot. Each motor connects to one of a channels in the PDH/PDP with thick red and black [:wires](#wires-and-fuses). Each of those channels has a fuse, so if there is a surge of power the fuse will pop instead of it damaging a motor.
 
+Some robot components require much less power than the [:motors](#krakens). The [:MPM](#mpm) provides channels for low power devices. One MPM channel can often power multiple devices. Devices that connect to the MPM include [:beam breaks](#beam-break), [:N100s](#n100), [:CANcoders](#cancoders), and the [:Pigeon](#pigeon). 
 
+Note that things are slightly different for the PDP 2.0.
 
-note that things are slightly different for the PDP 2.0. also, the radio is actually powered redundantly with [:POE](#radio)
+Also, the [:radio](#radio) is powered a little differently, utilizing [:POE](#poe)
+
+## :What fuses and wire thickness do we use?
 
 ## :How do components communicate with the roboRIO?
 
@@ -29,13 +37,13 @@ note that things are slightly different for the PDP 2.0. also, the radio is actu
 
 The roboRIO mainly has four ways of communication: CAN, PWM, DIO, and ethernet.
 
-The most important one is the [:CAN bus](#can-bus). It's a two-wire comminication system that connects devices like [::igeons](#pigeon), [:CANdles](#candle), [:CANcoders](#cancoders), and [:motor controllers]() in a daisy chain. Each device has a unique [:ID](#can-ids).
+The most important one is the CAN bus. It's a two-wire comminication system that connects devices in a daisy chain. The [:Pigeon](#pigeon), [:CANdle](#candle), [:CANcoders](#cancoders), and [:motor controllers](#motor-controllers) are connected with cam. Each device has a unique ID, which we keep track of on a spreadsheet. [[:more info](#can-bus)]
 
 [:DIO](#dio) ports are used to send simple on/off signals. DIO is great for small sensors like limit switches and [:beam breaks](#-bream-breaks).
 
-[:PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) can be used to control [:servos](servos) or older PWM motor controllers We would only use it when a device doesn't support CAN, since CAN is bi-directional and can send much more data.
+[:PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) is used to control [:servos](servos) or older motor controllers. We would only use it when a device doesn't support CAN, since CAN is bi-directional and can send much more data.
 
-We'll talk about ethernet in the next section
+We'll talk about ethernet in the next section!
 
 ## :What does the robot's network look like?
 
@@ -43,16 +51,17 @@ We'll talk about ethernet in the next section
 
 The robot's network is built around the radio. It creates a private network for the robot under the team's [:IP](#ip) range and connects to the field management system (FMS) during matches. 
 
-The radio connects to the RoboRIO and N100s via ethernet, allowing them to transmit data to each other. The cameras are connected and powered by the N100, which processes image data and sends it to the RoboRIO over ethernet, allowing it to make autonomous decisions.
+The radio connects to the RoboRIO and N100s via ethernet, allowing them to transmit data to each other. The cameras are connected and powered by the N100, which processes image data and sends it to the RoboRIO.
 
-The radio can connect to the [:driver station](#drive-station) over wifi, or it can be tethered directly with ethernet.
+During a match, the radio connects to the [:driver station](#drive-station) over wifi, but in the pits the robot can be tethered directly with a ethernet cable ("radio" is a bit misleading lol).
 
+[:heres how the match network works](#match-network)
 ## :What is the code actually doing during a match?
 Our robots code is command-based. Its based around two core [:abstractions](#abstraction): Subsystems and Commands
 
 ![An example by [:FIRST](#how-does-the-vision-system-work)](command_based.svg)
 
-W
+Commands represent actions the robot can take
 
 ## :What is version control?
 
@@ -85,9 +94,17 @@ drivity drive drive drive
 rio rio rio
 
 ### :PDH and PDP
-PDH: Power Distrubution Hub
+Power Distrubution Hub / Power Distrubution Port
 
-PDP: Power Distribution Power
+The PDP 1.0, PDH, and PDP 2.0 have the same purpose of distrubuting power, but they have significant differences!
+
+![The PDP 1.0 by CTRE is the oldest of the three. It has ](pdp_1.jpeg)
+
+![The PDH by REV. It has orange WAGO terminals](pdh.jpeg)
+
+![The PDH by Electronics ](pdp_2.jpeg)
+
+[:see more about the wiring](#)
 
 ### :Breaker
 *video of someone turing the robot on and off 
@@ -164,5 +181,12 @@ The superstructure is an abstraction. (ok the class structure is actually [:so m
 
 ### :Battery Break
 We use a battery beak to measure the voltage of each battery. However, info it gives is not the most useful. [:This conference]() gives a bit of an explanation why. This system may be changed in the future.
+
+### :Match Network
+The 10.x.x.x is a private network, so it can't be found on the internet
+
+
+### :x POE
+Power Over Ethernet
 
 <script src="https://cdn.jsdelivr.net/gh/ncase/nutshell/nutshell.js"></script>
